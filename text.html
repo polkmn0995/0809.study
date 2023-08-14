@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="jquery.textillate.js"></script>
+    <link rel="stylesheet" href="css/animation.css" />
+    <script src="assets/jquery.lettering.js"></script>
+    <script src="assets/jquery.fittext.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="title">Lorem ipsum dolor sit amet.</h1>
+    <button id="show">보여주기</button>
+    <button id="hide">숨기기</button>
+    <script>
+      $(function () {
+        $(".title").textillate({
+          autoStart: false,
+          in: {
+            // 텍스트가 나타날 때의 애니메이션 효과설정 jackInTheBox 효과 사용
+            effect: "jackInTheBox",
+            delay: 50,
+            // 각 문자의 애니메이션을 동기화하여 동시에 시작
+            sync: true,
+          },
+          out: {
+            effect: "fadeOut",
+            delay: 50,
+            // 문자가 사라질 때 무작위 순서로 애니메이션을 적용
+            shuffle: true,
+          },
+        });
+        $("#show").click(function () {
+          $(".title").textillate("in");
+        });
+        $("#hide").click(function () {
+          $(".title").textillate("out");
+        });
+      });
+    </script>
+  </body>
+</html>

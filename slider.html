@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/jquery.bxslider.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+
+    <!-- 스크립트 -->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="assets/jquery.fittext.js"></script>
+    <script src="assets/jquery.lettering.js"></script>
+    <script src="js/jquery.textillate.js"></script>
+    <script src="js/jquery.bxslider.min.js"></script>
+
+    <!-- font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* font-family: 'Montserrat', sans-serif; */
+      .slider_wrap {
+        margin: 0 auto;
+        min-height: 1100px;
+      }
+      .slider_item {
+        position: relative;
+      }
+      .slider_text {
+        position: absolute;
+        right: 50px;
+        bottom: 50px;
+        text-align: center;
+      }
+      .slider_text > h1 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+      .slider_text > p {
+        font-family: "Montserrat", sans-serif;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      .ghost_btn {
+        display: inline-block;
+        padding: 15px 50px;
+        border: 2px solid #000;
+        color: #000;
+        text-decoration: none;
+        border-radius: 50px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
+        opacity: 0;
+        transition: background-color 0.2s, color 0.2s, opacity 0.3;
+      }
+      .ghost_btn:hover {
+        background-color: #000;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slidre_wrap">
+      <div class="slider">
+        <div class="slider_item">
+          <img src="http://placehold.it/1920x800" />
+          <div class="slider_text">
+            <h1>Lorem ipsum dolor.</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <a href="#" class="ghost_btn">More..</a>
+          </div>
+        </div>
+        <div class="slider_item">
+          <img src="http://placehold.it/1920x800/abf" />
+          <div class="slider_text">
+            <h1>Lorem ipsum dolor.</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <a href="#" class="ghost_btn">More..</a>
+          </div>
+        </div>
+        <div class="slider_item">
+          <img src="http://placehold.it/1920x800/afb" />
+          <div class="slider_text">
+            <h1>Lorem ipsum dolor.</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <a href="#" class="ghost_btn">More..</a>
+          </div>
+        </div>
+        <div class="slider_item">
+          <img src="http://placehold.it/1920x800/fab" />
+          <div class="slider_text">
+            <h1>Lorem ipsum dolor.</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <a href="#" class="ghost_btn">More..</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(function () {
+        var i = 1;
+        $(".slider").bxSlider({
+          auto: true,
+          onSlideAfter: function (element, oldIndex, newIndex) {
+            hideText(oldIndex + 1);
+            showText(newIndex + 1);
+          },
+        });
+        $(".slider_text > h1").textillate({
+          autoStart: false,
+          in: { effect: "fadeInRight", delay: 15 },
+          out: { sync: true, delay: 10 },
+        });
+        $(".slider_text > p").textillate({
+          autoStart: false,
+          in: { effect: "fadeInUp", delay: 15 },
+          out: { sync: true, delay: 10 },
+        });
+        showText(1);
+        var timeout;
+        function showText(index) {
+          $(".slider_text > h1").textillate("in");
+          clearTimeout(timeout);
+          timeout = setTimeout(function () {
+            $(".slider_text > p").eq(index).textillate("in");
+            $(".ghost_btn")
+              .eq(index)
+              .stop()
+              .delay(500)
+              .animate({ opacity:1 }, 300);
+          });
+        }
+        function hideText(index) {
+          $(".slider_text > h1").eq(index).textillate("out");
+          $(".slider_text > p").eq(index).textillate("out");
+          $(".ghost_btn").eq(index).stop().animate({ opacity: 0 }, 100);
+        }
+      });
+    </script>
+  </body>
+</html>
